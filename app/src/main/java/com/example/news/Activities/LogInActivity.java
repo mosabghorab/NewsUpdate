@@ -101,6 +101,7 @@ public class LogInActivity extends AppCompatActivity implements LogInTestInterfa
 
     @Override
     public void showErrorMessage() {
+        Toast.makeText(LogInActivity.this, "Please Enter All Fields", Toast.LENGTH_SHORT).show();
 
     }
 }

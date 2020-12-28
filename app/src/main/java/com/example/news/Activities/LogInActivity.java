@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.news.MainActivity;
 import com.example.news.Models.Login.LogInTestInterface;
 import com.example.news.Models.Shared;
 import com.example.news.Models.User;

@@ -2,18 +2,26 @@ package com.example.news.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.news.Models.News;
+import com.example.news.Models.News_fav;
 import com.example.news.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -22,6 +30,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     private Context context;
     private List<News> newsList;
+    FirebaseFirestore firebaseFirestore;
 
     public NewsAdapter(Context context, List<News> news) {
         this.context = context;
@@ -35,7 +44,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsViewHolder newsViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final NewsViewHolder newsViewHolder, final int i) {
         final News news = newsList.get(i);
         newsViewHolder.textViewTitle.setText(news.getTitle());
         newsViewHolder.textViewPubDate.setText(news.getPubDate());
@@ -51,6 +60,43 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
         if (news.getImageUrl() != null && !news.getImageUrl().trim().equals(""))
             Picasso.get().load(news.getImageUrl()).into(newsViewHolder.imageViewImageUrl);
+
+        newsViewHolder.add_fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    newsViewHolder.add_fav.setTextOn("Not Added");
+                    newsViewHolder.add_fav.setBackgroundColor(Color.WHITE);
+
+                    firebaseFirestore = FirebaseFirestore.getInstance();
+                    CollectionReference collectionReference = firebaseFirestore.collection("News_fav");
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    String uid = user.getEmail();
+                    News_fav news_fav = new News_fav();
+                    news_fav.setUser_id(uid);
+                    news_fav.setNew_id(news.getTitle());
+                    collectionReference.add(news_fav);
+
+                }else {
+
+                    newsViewHolder.add_fav.setTextOff("Added");
+                    newsViewHolder.add_fav.setBackgroundColor(Color.RED);
+
+                }
+            }
+        });
+
+
+
+
+//        newsViewHolder.add_fav.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//
+//            }
+//        });
     }
 
     @Override
@@ -64,6 +110,7 @@ class NewsViewHolder extends RecyclerView.ViewHolder {
     TextView textViewTitle;
     TextView textViewPubDate;
     TextView textViewLink;
+    public ToggleButton add_fav;
 
     public NewsViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -71,6 +118,6 @@ class NewsViewHolder extends RecyclerView.ViewHolder {
         textViewPubDate = itemView.findViewById(R.id.text_view_pub_date);
         textViewTitle = itemView.findViewById(R.id.text_view_title);
         textViewLink = itemView.findViewById(R.id.text_view_link);
+        add_fav = itemView.findViewById(R.id.add_fav);
     }
 }
-

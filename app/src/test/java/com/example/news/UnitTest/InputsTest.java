@@ -25,6 +25,8 @@ public class InputsTest {
         System.out.println("Before");
         utils = new Utils();
         user = new User("1","mosab","mosab@gmail.com");
+        user.setMobile("0599859695");
+        user.setPassword("*4654mmm");
     }
 
     @Test

@@ -4,6 +4,8 @@ public class User {
     private String id;
     private String name;
     private String email;
+    private String mobile;
+    private String password;
 
     public User(String id,String name, String email) {
         this.name = name;
@@ -33,5 +35,21 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

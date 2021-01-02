@@ -6,12 +6,26 @@ public class News {
     private String pubDate;
     private String onSiteLink;
 
+    private boolean isFavorite;
+
+    public News() {
+    }
+
+    public News(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
+
     public News(String title, String imageUrl, String pubDate, String onSiteLink) {
         this.title = title;
         this.imageUrl = imageUrl;
         this.pubDate = pubDate;
         this.onSiteLink = onSiteLink;
     }
+
+    public boolean getIsFavorite() {
+        return isFavorite;
+    }
+
 
     public String getTitle() {
         return title;

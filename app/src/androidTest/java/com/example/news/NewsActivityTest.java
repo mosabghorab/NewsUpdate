@@ -4,7 +4,6 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.android21buttons.fragmenttestrule.FragmentTestRule;
 import com.example.news.Activities.LogInActivity;
 import com.example.news.Activities.MainActivity;
 import com.example.news.Activities.NewsActivity;
